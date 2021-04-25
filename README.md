@@ -5,6 +5,7 @@ Rules of the game:
 
 Same suits, greater card value will earn you a point.
 Different suits will always result in no points awarded to both players.
+Suits and value must be entered the same way as they show up in your deck as the game does not check for case.
 
 Progress:
 
