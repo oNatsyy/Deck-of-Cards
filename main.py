@@ -96,7 +96,9 @@ def play(size: int, difficulty: str) -> None:
 
         curr_round = 1
 
-        while len(p1.player_deck) != 0 or len(p2.player_deck) != 0:
+        playing = True
+
+        while (len(p1.player_deck) != 0 or len(p2.player_deck)) != 0 and playing:
 
             print("\nRound " + str(curr_round) + " has started!"  + "\n")
 
@@ -117,6 +119,7 @@ def play(size: int, difficulty: str) -> None:
                         p1_choice = False
                     elif choice[0] == False and len(choice) == 1:
                         p1_choice = False
+                        playing = False
                 else:
                     print("\nInvalid Selection\n")
 
@@ -131,27 +134,29 @@ def play(size: int, difficulty: str) -> None:
 
                     elif choice[0] == False and len(choice) == 1:
                         p2_choice = False
+                        playing = False
                 else:
                     print("\nInvalid Selection\n")
 
-            if choice_list[0].suit == choice_list[1].suit:
-                if choice_list[0].compare(choice_list[1]):
-                    print("----------------------------------------------------"
-                          "---")
-                    print("\n" + str(p1.name) + " has won the round and "
-                                                "secure a point!\n")
-                    p1.points += 1
+            if choice_list != [] and not len(choice_list) < 2:
+                if choice_list[0].suit == choice_list[1].suit:
+                    if choice_list[0].compare(choice_list[1]):
+                        print("----------------------------------------------------"
+                              "---")
+                        print("\n" + str(p1.name) + " has won the round and "
+                                                    "secure a point!\n")
+                        p1.points += 1
 
-                elif choice_list[1].compare(choice_list[0]):
-                    print("---------------------------------------------------"
-                          "----")
-                    print("\n" + str(p2.name) + " has won the round "
-                                                "and secure a point!\n")
-                    p2.points += 1
-            else:
-                print("-------------------------------------------------------")
-                print("\nWe have different suits so no points awarded!\n")
-                print("-------------------------------------------------------")
+                    elif choice_list[1].compare(choice_list[0]):
+                        print("---------------------------------------------------"
+                              "----")
+                        print("\n" + str(p2.name) + " has won the round "
+                                                    "and secure a point!\n")
+                        p2.points += 1
+                else:
+                    print("-------------------------------------------------------")
+                    print("\nWe have different suits so no points awarded!\n")
+                    print("-------------------------------------------------------")
 
         if p1.points > p2.points:
             print("Congratulations! " + str(p1.name) + " has won the game with "
@@ -159,7 +164,7 @@ def play(size: int, difficulty: str) -> None:
         elif p2.points > p1.points:
             print("Congratulations! " + str(p2.name) + " has won the game with "
                   + str(p2.points) + " point(s)!" )
-        else:
+        elif p1.points == p2.points and playing:
             print("The game has ended with a tie!")
 
 
